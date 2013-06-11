@@ -1,0 +1,52 @@
+!!! 5
+html
+  head
+    style
+      #header {
+      position: relative;
+      height: 45px;
+      width: 100%;
+      background: red;
+      }
+      #header input#field {
+      width: 50%;
+      margin: 2% 5%;
+      }
+      #header input#adder {
+      width: 15%;
+      margin: 2% 5%;
+      }      
+      #tweets {
+      padding: 5%;
+      }
+      .data {
+      color: blue;
+      }
+      .name {
+      color: black;
+      float: left;
+      border: 1px solid black;
+      width: 48px;
+      height: 48px;
+      margin: 2px;
+      }
+      .tweet {
+      padding: 5px;
+      }
+      #topic-buttons {
+        position: relative;
+        background: yellow;
+        height: 35px;
+      }
+    script(src='/socket.io/socket.io.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js')
+    script(src='/twitter.js')
+    title= "Socket.io Twitter Demo"
+  body
+    #header
+      input#field(placeholder="search twitter for something awesome...")
+      input#adder(type='button', value='Track Me!')
+    #topic-buttons
+      #{topics}
+    #topicList
+    #tweets
