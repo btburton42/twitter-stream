@@ -42,47 +42,57 @@ var watches = [];
 var io = require('socket.io').listen(app.listen(port));
 
 //remove annoying debug data msg.
-io.set('log level', 1); 
+// io.set('log level', 1); 
 
 io.sockets.on('connection', function(socket){
 
   socket.on('send', function(field){
     io.sockets.emit('topic', field);
+    if (field.topic) {
     watches.push(field.topic);
+    }
+    if (field.remTopic) {
+      var idx = watches.indexOf(field.remTopic); 
+      if(idx!=-1) {
+        watches.splice(idx, 1);
+      }  
+    }
     console.log(watches.length);
     console.log('outside ' + watches);
 
-    if (watches != ""){
+    if (watches.length != 0){
       twit.stream('statuses/filter', { track: watches }, function(stream) {
         console.log('inside ' + watches);
         stream.on('data', function (data) {
             io.sockets.emit('tweet', data, watches);
+            console.log('data ' + data);
+            console.log("watches.length " + watches.length);
             // console.log('.');
             // console.log(watches.length);
             // console.log(watches + ' ' + watches.length);
         });
       });
-    }
-  });
-
-  socket.on('remove', function(field){
-    var idx = watches.indexOf(field.topic); 
-    if(idx!=-1) {
-      watches.splice(idx, 1);
-    }
-    if (watches != ""){
-    twit.stream('statuses/filter', { track: watches }, function(stream) {
-      console.log('2nd inside ' + watches);
-      stream.on('data', function (data) {
-        io.sockets.emit('tweet', data, watches);
-      });
-    });
     } else {
-      io.sockets.emit('tweet', [], []);
+      console.log('*********************  empty *********************  ');
+      data = [];
     }
   });
 
+  // socket.on('remove', function(field){
+  //   if (watches != ""){
+  //   twit.stream('statuses/filter', { track: watches }, function(stream) {
+  //     console.log('2nd inside ' + watches);
+  //     stream.on('data', function (data) {
+  //       io.sockets.emit('tweet', data, watches);
+  //     });
+  //   });
+  //   } else {
+  //     io.sockets.emit('tweet', [], []);
+  //   }
+  // });
 });
+
+console.log("connected on port " + port);
 
 
 

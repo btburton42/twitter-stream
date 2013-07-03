@@ -44,14 +44,4 @@
 <div id="tweets"></div>
 
 
-
-<script>
-  var socket = io.connect('/'),
-      tweets = document.getElementById('tweets');
-  socket.on('tweet', function (pic, screen_name, user, text) {
-    tweets.innerHTML = tweets.innerHTML + '<br clear="all"><div class="tweet"><div class="name"><a href="http://twitter.com/' + screen_name + '" target="_blank""><img src="' + pic + '"></a></div><div class="data">' + text + '</div></div><br clear="all">';
-  });
-
-</script>
-
 </body>

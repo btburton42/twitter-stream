@@ -2,27 +2,20 @@ window.onload = function() {
 
   var topics = [];
   var topicButtons = document.getElementById("topic-buttons");
-  var topicButtonInputs = document.getElementById("topic-buttons").childNodes;
   var addButton = document.getElementById("adder");
   var field = document.getElementById("field");
   var socket = io.connect('/');
   var tweets = document.getElementById('tweets');
 
-  // socket.on('topic', function(field){
-  //   if (field.topic) {
-  //   topics.push(field.topic);
-  //   console.log(topics);
-  //     topicButtons.innerHTML = topicButtons.innerHTML + '|' + field.topic;
-  //   } else {
-  //   console.log("There is a problem: " + data);
-  // }
-  // })
 
   socket.on('tweet', function (data, watches) {
     //print tweets
     if ((watches != "") && (!data.disconnect)) {
       console.log(data);
-    tweets.innerHTML = data.text + '<br>' + tweets.innerHTML;
+    //organize our individual tweet data
+    var newTweet = '<div class="tweet"><div class="name"><a href="http://twitter.com/' + data.user.screen_name + '" target="_blank""><img src="' + data.user.profile_image_url + '"></a></div><div class="data">' + data.text + '</div></div>';
+    //append to innerHTML
+    tweets.innerHTML = newTweet + '<br clear="all">' + tweets.innerHTML;
     }
 
     //create button array
@@ -56,7 +49,7 @@ window.onload = function() {
   // });
   $("#topic-buttons").on("click", "input", function(event){
     var removeVar = $(this).context.value;
-    socket.emit('remove', {topic: removeVar});
+    socket.emit('send', {remTopic: removeVar});
   });
 
 
@@ -64,7 +57,6 @@ window.onload = function() {
 };
 
 (function() {
-  //jade 
   $( "#topicList" ).html(
       $( "#topicTemplate" ).render( topics )
   );
