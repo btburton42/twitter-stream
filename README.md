@@ -4,7 +4,7 @@ A simple example to create a websocket server and stream tweets about a pre-defi
 
 # Installation
 
-    $ npm install socket.io, twitter
+    $ npm install socket.io twitter
 
 # Run
 
