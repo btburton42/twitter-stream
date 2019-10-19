@@ -27,7 +27,6 @@ app.get("/", function(req, res){
 });
 
 //twitter
-
 var twit = new twitter({
   consumer_key: 'CONSUMER_KEY',
   consumer_secret: 'CONSUMER_SECRET',
