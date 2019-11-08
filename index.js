@@ -29,12 +29,11 @@ app.get("/", function(req, res){
 //twitter
 
 var twit = new twitter({
-  consumer_key: '7jwv7yRsa6EBl8NphDq3LQ',
-  consumer_secret: 'fILH404rgPXwES06AOyp1FtVGQm1fvU6NVygoXvLuU',
-  access_token_key: '15829179-O42nyuRC54CLOKE81DJQBLIr6zQDc8RVIv0Dp3lNs',
-  access_token_secret: 'VCZIBEfJ7ANXXIwSuu4bE9OPsQbZSPN7s1DKt258'
+  consumer_key: 'CONSUMER_KEY',
+  consumer_secret: 'CONSUMER_SECRET',
+  access_token_key: 'ACCESS_TOKEN_KEY',
+  access_token_secret: 'ACCESS_TOKEN_SECRET'
 });
-
 
 // var twee = io.of('tweet');
 var watches = [];
